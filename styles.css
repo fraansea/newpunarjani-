@@ -1,0 +1,2055 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+:root {
+    /* Colors from Figma */
+    --bg-primary: #ECEDE7;
+    --text-primary: #131313;
+    --text-secondary: #464646;
+    --text-tertiary: rgba(15, 46, 21, 0.5);
+    --accent-pink: #FBDBFC;
+    --accent-purple: #F9DFFA;
+    --white: #FFFFFF;
+    --gray: #636360;
+    --bg-secondary: #DADAD6;
+    --footer-text: #959691;
+
+    /* Fonts from Figma */
+    --font-heading: 'Arapey', serif;
+    --font-body: 'Instrument Sans', sans-serif;
+    --font-secondary: 'Inter', sans-serif;
+    --font-tertiary: 'Figtree', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1420px;
+    margin: 0 auto;
+    padding: 0 clamp(15px, 4vw, 40px);
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    min-height: 1003px;
+    padding-top: 44px;
+    overflow: hidden;
+    margin-bottom: 0;
+    padding-bottom: 100px;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('assets/images/hero-bg-2b24fd.png') center/cover no-repeat;
+    z-index: 0;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 43px;
+    margin-bottom: 180px;
+    position: relative;
+    z-index: 100;
+}
+
+.menu-wrapper {
+    position: absolute;
+    left: 43px;
+    top: 0;
+    z-index: 200;
+}
+
+.menu-icon {
+    width: 63px;
+    height: 63px;
+    cursor: pointer;
+    z-index: 200;
+    transition: transform 0.3s ease;
+}
+
+.menu-icon:hover {
+    transform: scale(1.05);
+}
+
+/* Dropdown Menu - Glass Effect */
+.dropdown-menu {
+    position: absolute;
+    top: 75px;
+    left: 0;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    padding: 12px 0;
+    min-width: 200px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+        0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    z-index: 199;
+}
+
+.dropdown-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: block;
+    padding: 14px 24px;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--text-primary);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.dropdown-item:hover {
+    background: rgba(249, 223, 250, 0.35);
+    border-left-color: var(--text-primary);
+    padding-left: 28px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.dropdown-item:active {
+    background: rgba(251, 219, 252, 0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.logo {
+    width: 209px;
+    height: 63px;
+    object-fit: contain;
+}
+
+.contact-btn {
+    position: absolute;
+    right: 43px;
+    top: 0;
+    background: var(--white);
+    border: none;
+    border-radius: 63.48px;
+    padding: 0;
+    padding-left: 65px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 18.1px;
+    line-height: 1.30em;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 200.63px;
+    height: 63.45px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 100;
+}
+
+.contact-btn::before {
+    content: '';
+    position: absolute;
+    left: 9.06px;
+    top: 9.06px;
+    width: 45.33px;
+    height: 45.33px;
+    background: var(--accent-purple);
+    border-radius: 45.35px;
+    z-index: -1;
+}
+
+.contact-btn::after {
+    content: '';
+    position: absolute;
+    left: 18.1px;
+    top: 20.9px;
+    width: 27.2px;
+    height: 27.2px;
+    background-image: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 14H23M23 14L14 5M23 14L14 23' stroke='%23131313' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 0;
+}
+
+.contact-btn>* {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* Hero Content */
+.hero-content {
+    text-align: center;
+    padding: 0 200px;
+    position: relative;
+    z-index: 10;
+}
+
+.hero-text {
+    margin-bottom: 31px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 31px;
+}
+
+.hero-heading {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 81.6px;
+    line-height: 1.11em;
+    letter-spacing: -0.05em;
+    color: var(--text-primary);
+    margin-bottom: 0;
+    max-width: 629px;
+}
+
+.hero-heading-line {
+    display: block;
+}
+
+.italic-text {
+    font-style: italic;
+}
+
+.hero-description {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 18.1px;
+    line-height: 1.50em;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    max-width: 418.8px;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+}
+
+/* Hero CTA */
+.hero-cta {
+    display: flex;
+    justify-content: center;
+    gap: 19px;
+    margin-bottom: 110px;
+}
+
+.btn-primary,
+.btn-secondary {
+    position: relative;
+    border-radius: 63.48px;
+    padding: 0;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 18.1px;
+    line-height: 1.30em;
+    letter-spacing: -0.01em;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 63.45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    background: var(--white);
+    color: var(--text-primary);
+    width: 200.63px;
+    z-index: 1;
+    position: relative;
+    padding-left: 65px;
+    justify-content: flex-start;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    left: 9.06px;
+    top: 9.06px;
+    width: 45.33px;
+    height: 45.33px;
+    background: var(--accent-purple);
+    border-radius: 45.35px;
+    z-index: -1;
+}
+
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    left: 18.1px;
+    top: 20.9px;
+    width: 27.2px;
+    height: 27.2px;
+    background-image: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 14H23M23 14L14 5M23 14L14 23' stroke='%23131313' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 0;
+}
+
+.btn-primary>* {
+    position: relative;
+    z-index: 1;
+}
+
+.btn-secondary {
+    background: rgba(218, 218, 214, 0.6);
+    color: var(--text-primary);
+    width: 194px;
+    height: 64px;
+    font-family: var(--font-secondary);
+    border-radius: 36.28px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    letter-spacing: -0.05em;
+}
+
+.btn-explore>* {
+    position: relative;
+    z-index: 1;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.contact-btn:hover,
+.btn-explore:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Stats Card */
+.stats-card {
+    background: var(--white);
+    border-radius: 22.67px;
+    padding: 48px 73px;
+    width: min(1324.37px, calc(100% - (2 * clamp(15px, 4vw, 40px))));
+    margin: 80px auto 0;
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    justify-content: flex-start;
+    align-items: center;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 712px;
+}
+
+.stats-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 61px;
+    align-items: flex-start;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    text-align: left;
+}
+
+.stat-item:nth-child(1) {
+    width: 139.32px;
+}
+
+.stat-item:nth-child(2) {
+    width: 172.05px;
+}
+
+.stat-item:nth-child(3) {
+    width: 201px;
+}
+
+.stat-value {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 68px;
+    line-height: 1.20em;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    font-style: italic;
+}
+
+.stat-plus {
+    font-size: 36.3px;
+    line-height: 1.30em;
+}
+
+.stat-label {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 18.1px;
+    line-height: 1.12em;
+    letter-spacing: -0.03em;
+    color: var(--text-secondary);
+}
+
+.stat-description {
+    width: min(483px, 100%);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.stat-description p {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 18.1px;
+    line-height: 1.66em;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.link-arrow {
+    width: 107.02px;
+    height: 28.34px;
+    margin-top: 0;
+}
+
+/* Services Section */
+.services {
+    padding: 100px 0;
+    position: relative;
+    z-index: 1;
+    background: var(--bg-primary);
+}
+
+.services-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 60px;
+}
+
+.section-intro {
+    max-width: 472px;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 54.4px;
+    line-height: 1.00em;
+    letter-spacing: -0.05em;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+}
+
+.section-description {
+    font-family: var(--font-secondary);
+    font-weight: 400;
+    font-size: 18.1px;
+    line-height: 1.50em;
+    letter-spacing: -0.05em;
+    color: var(--text-secondary);
+}
+
+.btn-explore {
+    position: relative;
+    background: var(--white);
+    border: none;
+    border-radius: 63.48px;
+    padding: 0;
+    padding-left: 65px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 18.1px;
+    line-height: 1.30em;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 258.79px;
+    height: 63.45px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 1;
+}
+
+.btn-explore::before {
+    content: '';
+    position: absolute;
+    left: 9.06px;
+    top: 9.06px;
+    width: 45.33px;
+    height: 45.33px;
+    background: var(--accent-purple);
+    border-radius: 45.35px;
+    z-index: -1;
+}
+
+.btn-explore::after {
+    content: '';
+    position: absolute;
+    left: 18.1px;
+    top: 20.9px;
+    width: 27.2px;
+    height: 27.2px;
+    background-image: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 14H23M23 14L14 5M23 14L14 23' stroke='%23131313' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 0;
+}
+
+/* Services Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 36px;
+}
+
+.service-card {
+    padding: 10px;
+}
+
+.service-card-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+
+.service-icon {
+    width: 72.55px;
+    height: 72.55px;
+}
+
+.service-bg {
+    width: 100%;
+    height: 100%;
+}
+
+.service-content {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+}
+
+.service-title {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 40.8px;
+    line-height: 1.11em;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+}
+
+.service-description {
+    font-family: var(--font-secondary);
+    font-weight: 400;
+    font-size: 18.1px;
+    line-height: 1.50em;
+    letter-spacing: -0.05em;
+    color: var(--text-secondary);
+}
+
+/* Doctors Section */
+.doctors {
+    padding: 80px 0;
+}
+
+.doctors-header {
+    margin-bottom: 60px;
+}
+
+.section-label {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 18.1px;
+    line-height: 1.50em;
+    letter-spacing: -0.01em;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.doctors-content {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 150px;
+    align-items: flex-start;
+}
+
+/* Specialist Card */
+.specialist-card {
+    background: var(--accent-pink);
+    border-radius: 22.67px;
+    padding: 36px 27px;
+    position: relative;
+    min-height: 676px;
+    width: 426.6px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.specialist-info {
+    z-index: 1;
+}
+
+.specialist-title {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 40.8px;
+    line-height: 1.11em;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin-bottom: 21px;
+}
+
+.specialist-description {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 18.1px;
+    line-height: 1.50em;
+    letter-spacing: -0.01em;
+    color: var(--text-secondary);
+    margin-bottom: 404px;
+}
+
+.btn-view-more {
+    position: relative;
+    background: var(--white);
+    border: none;
+    border-radius: 63.48px;
+    padding: 0;
+    padding-left: 65px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 18.1px;
+    line-height: 1.30em;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    width: 200.63px;
+    height: 63.45px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 1;
+}
+
+.btn-view-more::before {
+    content: '';
+    position: absolute;
+    left: 9.06px;
+    top: 9.06px;
+    width: 45.33px;
+    height: 45.33px;
+    background: var(--accent-purple);
+    border-radius: 45.35px;
+    z-index: -1;
+}
+
+.btn-view-more::after {
+    content: '';
+    position: absolute;
+    left: 18.1px;
+    top: 20.9px;
+    width: 27.2px;
+    height: 27.2px;
+    background-image: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 14H23M23 14L14 5M23 14L14 23' stroke='%23131313' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 0;
+}
+
+.btn-view-more:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.specialist-decoration {
+    position: absolute;
+    bottom: 61px;
+    right: 5.59px;
+    width: 315px;
+    height: 316px;
+    opacity: 0.8;
+}
+
+/* Doctor Profile */
+.doctor-profile {
+    position: relative;
+    flex: 1;
+    overflow: visible;
+}
+
+.doctor-image-container {
+    width: min(881px, 100%);
+    height: 670px;
+    border-radius: 22.67px;
+    overflow: hidden;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    position: relative;
+}
+
+.doctor-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.doctor-info {
+    position: absolute;
+    bottom: 24px;
+    left: 32px;
+    right: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.doctor-name {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 22.7px;
+    line-height: 1.40em;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin: 0;
+    width: auto;
+}
+
+.learn-more {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 18.1px;
+    line-height: 1.50em;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.arrow-icon {
+    width: 27px;
+    height: 27px;
+}
+
+/* Reviews Section */
+.reviews-section {
+    padding-top: 100px;
+}
+
+.reviews-title {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 72.6px;
+    line-height: 1.00em;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: 88px;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+}
+
+.review-card {
+    background: var(--white);
+    border-radius: 11.34px;
+    padding: 22.67px;
+    min-height: 354px;
+}
+
+.review-avatar {
+    width: 45.34px;
+    height: 45.34px;
+    border-radius: 54.41px;
+    margin-bottom: 22px;
+}
+
+.review-author {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 15.9px;
+    line-height: 1.42em;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    margin-bottom: 22px;
+}
+
+.review-text {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 22.7px;
+    line-height: 1.40em;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin-bottom: 132px;
+}
+
+.review-date {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 15.9px;
+    line-height: 1.42em;
+    letter-spacing: -0.01em;
+    color: var(--text-tertiary);
+    text-align: right;
+}
+
+/* FAQ Section */
+.faq {
+    padding: 100px 0;
+}
+
+.faq .container {
+    display: flex;
+    gap: 68px;
+    align-items: flex-start;
+}
+
+.faq-header {
+    max-width: 364px;
+    flex-shrink: 0;
+}
+
+.faq-title {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 54.4px;
+    line-height: 1.00em;
+    letter-spacing: -0.05em;
+    color: var(--text-primary);
+    margin-bottom: 52px;
+}
+
+.faq-description {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 18.1px;
+    line-height: 1.50em;
+    letter-spacing: -0.01em;
+    color: var(--text-secondary);
+}
+
+.faq-list {
+    flex: 1;
+    max-width: 901px;
+}
+
+.faq-item {
+    background: var(--white);
+    border-radius: 45.35px;
+    padding: 40px 36px;
+    margin-bottom: 27px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.faq-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-question {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 27.2px;
+    line-height: 1.33em;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    flex: 1;
+    padding-right: 20px;
+}
+
+.faq-icon {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding-top 0.4s ease, opacity 0.4s ease;
+    opacity: 0;
+}
+
+.faq-answer p {
+    font-family: var(--font-body);
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px;
+    padding-top: 20px;
+    opacity: 1;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+}
+
+/* Footer */
+.footer {
+    padding: 191px 0 0;
+    position: relative;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 180px;
+}
+
+.footer-logo .logo {
+    width: 209px;
+    height: 63px;
+}
+
+.footer-nav {
+    display: flex;
+    gap: 314px;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 55px;
+}
+
+.footer-link {
+    font-family: var(--font-secondary);
+    font-weight: 400;
+    font-size: 20.08px;
+    line-height: 1.50em;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.footer-link:hover {
+    opacity: 1;
+}
+
+.contact-col {
+    gap: 14px;
+}
+
+.footer-heading {
+    font-family: var(--font-secondary);
+    font-weight: 500;
+    font-size: 20.08px;
+    line-height: 1.42em;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+}
+
+.footer-contact {
+    font-family: var(--font-tertiary);
+    font-weight: 400;
+    font-size: 20.08px;
+    line-height: 1.20em;
+    letter-spacing: -0.05em;
+    color: var(--gray);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-contact:hover {
+    color: var(--text-primary);
+}
+
+/* Footer Large Text */
+.footer-large-text {
+    text-align: center;
+    margin: -18px 0 0 -18px;
+    overflow: hidden;
+}
+
+.footer-large-text img {
+    width: 100%;
+    max-width: 1920px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    opacity: 0.15;
+}
+
+/* Scroll to Top Button */
+.scroll-top {
+    position: absolute;
+    bottom: 43px;
+    right: 64px;
+    width: 64px;
+    height: 64px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.scroll-top:hover {
+    transform: translateY(-4px);
+}
+
+.scroll-top img {
+    width: 100%;
+    height: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 1600px) {
+    .hero-content {
+        padding: 0 100px;
+    }
+
+    .stats-grid {
+        flex-wrap: wrap;
+        gap: 40px;
+    }
+
+    .stat-item:nth-child(1),
+    .stat-item:nth-child(2),
+    .stat-item:nth-child(3) {
+        width: auto;
+        flex: 1;
+        min-width: 120px;
+    }
+
+    .stat-description {
+        width: 100%;
+    }
+}
+
+@media (max-width: 1400px) {
+    .reviews-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .footer-nav {
+        gap: 150px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .doctors-content {
+        flex-direction: column;
+    }
+
+    .doctor-profile {
+        width: 100%;
+    }
+
+    .doctor-image-container {
+        width: 100%;
+    }
+
+    .doctor-image {
+        width: 100%;
+        height: 500px;
+    }
+
+    /* Pink specialist card: wider and shorter at 770–1199px */
+    .specialist-card {
+        width: 100%;
+        min-height: unset;
+        flex-shrink: 1;
+        padding: 28px 32px;
+        gap: 16px;
+    }
+
+    .specialist-description {
+        margin-bottom: 24px;
+    }
+
+    .specialist-decoration {
+        width: 180px;
+        height: 180px;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    /* Hero must not clip the taller stats card */
+    .hero {
+        overflow: visible;
+        padding-bottom: 340px;
+    }
+
+    /* Stats card: full width, allow height to grow */
+    .stats-card {
+        width: calc(100% - 80px);
+        padding: 40px 60px;
+        align-items: flex-start;
+    }
+
+    /* Stats grid: numbers in a row, description wraps below */
+    .stats-grid {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 40px 50px;
+        align-items: flex-start;
+    }
+
+    .stat-item:nth-child(1),
+    .stat-item:nth-child(2),
+    .stat-item:nth-child(3) {
+        width: auto;
+        flex: 0 0 auto;
+        min-width: 100px;
+    }
+
+    .stat-description {
+        width: 100%;
+        max-width: 100%;
+        flex: 0 0 100%;
+    }
+
+    .stat-description p {
+        font-size: 16px;
+        line-height: 1.6em;
+    }
+}
+
+/* ============================================================
+   Figma Breakpoint: 1024w default
+   ============================================================ */
+@media (max-width: 1024px) {
+    .hero {
+        overflow: visible;
+        padding-bottom: 320px;
+    }
+
+    .hero-content {
+        padding: 0 20px;
+    }
+
+    .hero-heading {
+        font-size: 81.6px;
+        max-width: 619px;
+    }
+
+    .stats-card {
+        width: calc(100% - 80px);
+        padding: 48px 73px;
+        align-items: flex-start;
+    }
+
+    .stats-grid {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 40px 61px;
+        align-items: flex-start;
+    }
+
+    .stat-item:nth-child(1),
+    .stat-item:nth-child(2),
+    .stat-item:nth-child(3) {
+        width: auto;
+        flex: 0 0 auto;
+        min-width: 120px;
+    }
+
+    .stat-description {
+        width: 100%;
+        flex: 0 0 100%;
+    }
+
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px 36px;
+    }
+
+    .services-header {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .reviews-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .faq .container {
+        flex-direction: row;
+        gap: 40px;
+    }
+
+    .faq-header {
+        max-width: 322px;
+        flex-shrink: 0;
+    }
+
+    .footer-nav {
+        gap: 80px;
+    }
+}
+
+/* ============================================================
+   Figma Breakpoint: 768w default
+   ============================================================ */
+@media (max-width: 768px) {
+
+    /* Header */
+    .header {
+        padding: 0 28px;
+        height: 48px;
+        margin-bottom: 180px;
+    }
+
+    .menu-wrapper {
+        left: 43px;
+        top: 0;
+    }
+
+    .menu-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .logo {
+        width: 160px;
+        height: 48px;
+    }
+
+    .contact-btn {
+        right: 28px;
+        width: 121px;
+        height: 48px;
+        border-radius: 48px;
+        font-size: 13.7px;
+        padding-left: 50px;
+    }
+
+    .contact-btn::before {
+        left: 7.57px;
+        top: 7.57px;
+        width: 34.29px;
+        height: 34.29px;
+        border-radius: 34.3px;
+    }
+
+    .contact-btn::after {
+        left: 14px;
+        top: 14px;
+        width: 20.58px;
+        height: 20.58px;
+        background-size: 20.58px 20.58px;
+    }
+
+    /* Hero */
+    .hero {
+        min-height: 1003px;
+        padding-top: 44px;
+        overflow: visible;
+        padding-bottom: 300px;
+    }
+
+    .hero-content {
+        padding: 0 20px;
+    }
+
+    .hero-heading {
+        font-size: 48px;
+        line-height: 1.11em;
+        letter-spacing: -0.05em;
+        max-width: 364px;
+    }
+
+    .hero-description {
+        font-size: 18.1px;
+        max-width: 418px;
+        padding: 0;
+    }
+
+    .hero-cta {
+        flex-direction: row;
+        gap: 19px;
+        justify-content: center;
+    }
+
+    .btn-primary {
+        width: 200.63px;
+        height: 63.45px;
+    }
+
+    .btn-secondary {
+        width: 194px;
+        height: 64px;
+    }
+
+    /* Stats card - Figma 768w: compact centered card */
+    .stats-card {
+        width: 562px;
+        border-radius: 19.07px;
+        padding: 31px 49px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 712px;
+        margin: 0;
+    }
+
+    .stats-grid {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 25px;
+        align-items: flex-start;
+    }
+
+    .stat-item:nth-child(1),
+    .stat-item:nth-child(2),
+    .stat-item:nth-child(3) {
+        width: auto;
+        flex: 1;
+        min-width: 100px;
+    }
+
+    .stat-value {
+        font-size: 45.8px;
+        line-height: 1.2em;
+        letter-spacing: -0.03em;
+    }
+
+    .stat-plus {
+        font-size: 22.9px;
+    }
+
+    .stat-label {
+        font-size: 15.3px;
+        line-height: 1.12em;
+        letter-spacing: -0.03em;
+    }
+
+    .stat-description {
+        width: 100%;
+        text-align: center;
+        align-items: center;
+    }
+
+    .stat-description p {
+        font-size: 15.3px;
+        line-height: 1.5em;
+        text-align: center;
+    }
+
+    /* Services - Figma 768w: header stacks, button below title */
+    .services {
+        padding: 180px 0 120px;
+    }
+
+    .services-header {
+        flex-direction: column;
+        gap: 30px;
+        align-items: flex-start;
+    }
+
+    .section-intro {
+        max-width: 100%;
+    }
+
+    .section-title {
+        font-size: 54.4px;
+        margin-bottom: 20px;
+    }
+
+    .section-description {
+        font-size: 18.1px;
+    }
+
+    .btn-explore {
+        width: 258.79px;
+        height: 63.45px;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+
+    .service-title {
+        font-size: 40.8px;
+    }
+
+    .service-description {
+        font-size: 18.1px;
+    }
+
+    /* Doctors - Figma 768w: stacked layout */
+    .doctors {
+        padding: 120px 0;
+    }
+
+    .doctors-header {
+        margin-bottom: 32px;
+    }
+
+    .doctors-content {
+        flex-direction: column;
+        gap: 18px;
+        margin-bottom: 80px;
+    }
+
+    .specialist-card {
+        width: 100%;
+        min-height: auto;
+        border-radius: 22.67px;
+        padding: 27px;
+    }
+
+    .specialist-title {
+        font-size: 40.8px;
+        margin-bottom: 21px;
+    }
+
+    .specialist-description {
+        font-size: 18.1px;
+        margin-bottom: 24px;
+    }
+
+    .specialist-decoration {
+        display: none;
+    }
+
+    .btn-view-more {
+        width: 200.63px;
+        height: 63.45px;
+    }
+
+    .doctor-image-container {
+        width: 100%;
+        height: 670px;
+        border-radius: 22.67px;
+    }
+
+    .doctor-name {
+        font-size: 22.7px;
+    }
+
+    .learn-more {
+        font-size: 18.1px;
+    }
+
+    .arrow-icon {
+        width: 27px;
+        height: 27px;
+    }
+
+    /* Reviews - Figma 768w: single column */
+    .reviews-section {
+        padding-top: 80px;
+    }
+
+    .reviews-title {
+        font-size: 72.6px;
+        margin-bottom: 60px;
+    }
+
+    .reviews-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .review-card {
+        border-radius: 11.34px;
+        padding: 22.67px;
+        min-height: auto;
+    }
+
+    /* FAQ - Figma 768w: stacked layout, full-width list */
+    .faq {
+        padding: 120px 0;
+    }
+
+    .faq .container {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .faq-header {
+        max-width: none;
+        text-align: left;
+    }
+
+    .faq-title {
+        font-size: 54.4px;
+        line-height: 1.0em;
+        letter-spacing: -0.05em;
+        margin-bottom: 20px;
+    }
+
+    .faq-description {
+        font-size: 18.1px;
+    }
+
+    .faq-item {
+        border-radius: 45.35px;
+        padding: 30px 24px;
+    }
+
+    .faq-question {
+        font-size: 20px;
+        line-height: 1.33em;
+    }
+
+    .faq-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .faq-answer p {
+        font-size: 18.1px;
+    }
+
+    /* Footer */
+    .footer-nav {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .footer-large-text img {
+        max-width: 768px;
+    }
+}
+
+/* ============================================================
+   Figma Breakpoint: 390w default (Mobile)
+   ============================================================ */
+@media (max-width: 480px) {
+
+    /* Header */
+    .header {
+        padding: 0 14px;
+        height: 40px;
+        justify-content: flex-end;
+        margin-bottom: 180px;
+    }
+
+    .menu-wrapper {
+        left: 30px;
+        top: 0;
+    }
+
+    .menu-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .logo {
+        width: 130px;
+        height: 40px;
+        margin-left: auto;
+    }
+
+    /* Hide contact button on mobile - Figma 390w has no contact button in header */
+    .contact-btn {
+        display: none;
+    }
+
+    .dropdown-menu {
+        top: 52px;
+        min-width: 180px;
+    }
+
+    /* Hero */
+    .hero {
+        min-height: 1003px;
+        padding-top: 44px;
+        overflow: visible;
+        padding-bottom: 520px;
+    }
+
+    .hero-content {
+        padding: 0 15px;
+    }
+
+    .hero-text {
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .hero-heading {
+        font-size: 44.97px;
+        line-height: 1.11em;
+        letter-spacing: -0.05em;
+        max-width: 346px;
+        margin: 0 auto;
+    }
+
+    .hero-description {
+        font-size: 14px;
+        line-height: 1.63em;
+        letter-spacing: -0.011em;
+        max-width: 353px;
+        padding: 0;
+    }
+
+    .hero-cta {
+        flex-direction: row;
+        gap: 7.63px;
+        justify-content: center;
+        margin-bottom: 0;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        height: 53.38px;
+        max-width: none;
+        font-size: 15.3px;
+    }
+
+    .btn-primary {
+        width: 168.77px;
+        border-radius: 53.39px;
+        padding-left: 55.29px;
+    }
+
+    .btn-primary::before {
+        left: 7.62px;
+        top: 7.62px;
+        width: 38.13px;
+        height: 38.13px;
+        border-radius: 38.14px;
+    }
+
+    .btn-primary::after {
+        left: 15.24px;
+        top: 15.24px;
+        width: 22.88px;
+        height: 22.88px;
+        background-size: 22.88px 22.88px;
+    }
+
+    .btn-secondary {
+        width: 152.55px;
+        border-radius: 30.51px;
+        letter-spacing: -0.05em;
+    }
+
+    /* Stats card - Figma 390w: vertical stacked card */
+    .stats-card {
+        width: calc(100% - 30px);
+        max-width: 359.5px;
+        padding: 24px 20px 28px;
+        border-radius: 19.07px;
+        position: absolute;
+        left: 15px;
+        top: 709.51px;
+        transform: none;
+        margin: 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .stats-grid {
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+        width: 100%;
+    }
+
+    .stat-item {
+        width: 100% !important;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+    }
+
+    .stat-value {
+        font-size: 45.8px;
+        line-height: 1.2em;
+        letter-spacing: -0.03em;
+        justify-content: center;
+    }
+
+    .stat-plus {
+        font-size: 22.9px;
+    }
+
+    .stat-label {
+        font-size: 18.1px;
+        line-height: 1.12em;
+        letter-spacing: -0.03em;
+        text-align: center;
+    }
+
+    .stat-description {
+        width: 100%;
+        text-align: center;
+        align-items: center;
+        gap: 0;
+    }
+
+    .stat-description p {
+        font-size: 15.3px;
+        line-height: 1.5em;
+        letter-spacing: -0.01em;
+        margin-top: 8px;
+        text-align: center;
+    }
+
+    .link-arrow {
+        display: none;
+    }
+
+    /* Services - Figma 390w: centered, single column */
+    .services {
+        padding: 220px 0 120px;
+    }
+
+    .services-header {
+        flex-direction: column;
+        gap: 22px;
+        margin-bottom: 32px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .section-intro {
+        max-width: 359.5px;
+        text-align: center;
+    }
+
+    .section-title {
+        font-size: 38.1px;
+        line-height: 1.001em;
+        letter-spacing: -0.05em;
+        margin-bottom: 14px;
+        text-align: center;
+    }
+
+    .section-description {
+        font-size: 15.3px;
+        line-height: 1.5em;
+        letter-spacing: -0.05em;
+        text-align: center;
+    }
+
+    .btn-explore {
+        width: 217.7px;
+        height: 53.38px;
+        border-radius: 53.39px;
+        padding-left: 55.29px;
+        font-size: 15.3px;
+        justify-content: flex-start;
+    }
+
+    .btn-explore::before {
+        left: 7.62px;
+        top: 7.62px;
+        width: 38.13px;
+        height: 38.13px;
+        border-radius: 38.14px;
+    }
+
+    .btn-explore::after {
+        left: 15.24px;
+        top: 15.24px;
+        width: 22.88px;
+        height: 22.88px;
+        background-size: 22.88px 22.88px;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+
+    .service-card-inner {
+        align-items: center;
+        text-align: center;
+    }
+
+    .service-title {
+        font-size: 30.5px;
+        line-height: 1.11em;
+        letter-spacing: -0.03em;
+        text-align: center;
+    }
+
+    .service-description {
+        font-size: 15.3px;
+        line-height: 1.5em;
+        letter-spacing: -0.05em;
+        text-align: center;
+    }
+
+    /* Doctors - Figma 390w: stacked, full-width */
+    .doctors {
+        padding: 120px 0;
+    }
+
+    .doctors-header {
+        margin-bottom: 32px;
+        text-align: center;
+    }
+
+    .section-label {
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .doctors-content {
+        flex-direction: column;
+        gap: 18px;
+        margin-bottom: 80px;
+    }
+
+    .doctor-image-container {
+        width: 100%;
+        height: 534.89px;
+        border-radius: 15.26px;
+    }
+
+    .doctor-info {
+        left: 18px;
+        bottom: 18px;
+        position: absolute;
+    }
+
+    .doctor-name {
+        position: static;
+        width: auto;
+        margin: 0 0 8px 0;
+        font-size: 19.1px;
+        line-height: 1.4em;
+        letter-spacing: -0.03em;
+        text-align: left;
+    }
+
+    .learn-more {
+        font-size: 15.3px;
+    }
+
+    .arrow-icon {
+        width: 22px;
+        height: 22px;
+    }
+
+    .specialist-card {
+        width: 100%;
+        min-height: auto;
+        border-radius: 15.26px;
+        padding: 22px 20px;
+    }
+
+    .specialist-title {
+        font-size: 34px;
+        line-height: 1.11em;
+        letter-spacing: -0.036em;
+        text-align: left;
+        margin-bottom: 16px;
+    }
+
+    .specialist-description {
+        font-size: 15px;
+        line-height: 1.5em;
+        margin-bottom: 18px;
+    }
+
+    .specialist-decoration {
+        display: none;
+    }
+
+    .btn-view-more {
+        height: 53.38px;
+        border-radius: 30.51px;
+        font-size: 15.3px;
+        padding: 0 18px;
+        justify-content: center;
+        width: 152.55px;
+    }
+
+    .btn-view-more::before,
+    .btn-view-more::after {
+        display: none;
+    }
+
+    /* Reviews - Figma 390w: single column */
+    .reviews-section {
+        padding-top: 80px;
+    }
+
+    .reviews-title {
+        font-size: 38.1px;
+        line-height: 1.001em;
+        letter-spacing: -0.03em;
+        margin-bottom: 40px;
+    }
+
+    .reviews-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .review-card {
+        border-radius: 9.53px;
+        padding: 22.67px;
+        min-height: auto;
+    }
+
+    .review-text {
+        margin-bottom: 24px;
+    }
+
+    /* FAQ - Figma 390w: centered title, full-width list */
+    .faq {
+        padding: 120px 0;
+    }
+
+    .faq .container {
+        flex-direction: column;
+        gap: 22px;
+    }
+
+    .faq-header {
+        max-width: none;
+        text-align: center;
+    }
+
+    .faq-title {
+        font-size: 38.1px;
+        line-height: 1.001em;
+        letter-spacing: -0.05em;
+        margin-bottom: 20px;
+    }
+
+    .faq-description {
+        font-size: 15.3px;
+        line-height: 1.5em;
+    }
+
+    .faq-item {
+        border-radius: 30.51px;
+        padding: 29.2px 26.7px;
+    }
+
+    .faq-header-row {
+        align-items: flex-start;
+    }
+
+    .faq-question {
+        font-size: 22.9px;
+        line-height: 1.33em;
+        letter-spacing: -0.03em;
+        text-align: left;
+        padding-right: 14px;
+    }
+
+    .faq-icon {
+        width: 45.77px;
+        height: 64.01px;
+    }
+
+    .faq-answer p {
+        font-size: 15.3px;
+        line-height: 1.5em;
+    }
+
+    /* Footer - Figma 390w: stacked, centered */
+    .footer {
+        padding: 80px 0 0;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 60px;
+        gap: 40px;
+    }
+
+    .footer-logo .logo {
+        width: 130px;
+        height: 40px;
+    }
+
+    .footer-nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+    }
+
+    .footer-col {
+        gap: 22px;
+        align-items: center;
+    }
+
+    .footer-link {
+        font-size: 18px;
+        line-height: 1.4;
+    }
+
+    .footer-heading {
+        font-size: 18px;
+    }
+
+    .footer-contact {
+        font-size: 18px;
+        line-height: 1.3;
+    }
+
+    .footer-large-text {
+        margin: 0;
+    }
+
+    .scroll-top {
+        right: 16px;
+        bottom: 16px;
+        width: 48px;
+        height: 48px;
+    }
+}
