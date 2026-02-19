@@ -1872,22 +1872,37 @@ body {
         margin-bottom: 80px;
     }
 
+    .doctor-profile {
+        display: flex;
+        flex-direction: column;
+        border-radius: 15.26px;
+        overflow: hidden;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    }
+
     .doctor-image-container {
         width: 100%;
-        height: 534.89px;
-        border-radius: 15.26px;
+        height: 360px;
+        border-radius: 0;
+        box-shadow: none;
+        overflow: hidden;
     }
 
     .doctor-info {
-        left: 18px;
-        bottom: 18px;
-        position: absolute;
+        position: static;
+        left: auto;
+        bottom: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 18px;
+        background: #fff;
     }
 
     .doctor-name {
         position: static;
         width: auto;
-        margin: 0 0 8px 0;
+        margin: 0;
         font-size: 19.1px;
         line-height: 1.4em;
         letter-spacing: -0.03em;
@@ -1896,6 +1911,7 @@ body {
 
     .learn-more {
         font-size: 15.3px;
+        white-space: nowrap;
     }
 
     .arrow-icon {

@@ -534,6 +534,171 @@ body {
     margin-bottom: 15px;
 }
 
+/* Hero Image Section */
+.hero-image-preview-wrapper {
+    margin-bottom: 24px;
+}
+
+.hero-image-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+}
+
+.hero-image-preview {
+    width: 100%;
+    max-width: 640px;
+    height: 220px;
+    border-radius: 12px;
+    background: var(--bg-light);
+    border: 2px dashed var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero-image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.hero-image-placeholder-text {
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+/* Upload Zone */
+.hero-upload-zone {
+    max-width: 640px;
+    background: var(--bg-light);
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 40px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-bottom: 24px;
+}
+
+.hero-upload-zone:hover {
+    border-color: var(--primary);
+    background: #e8e9e3;
+}
+
+.hero-upload-zone.dragover {
+    border-color: var(--primary);
+    background: var(--accent);
+    transform: scale(1.01);
+}
+
+.hero-upload-zone.uploading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.hero-upload-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+
+.hero-upload-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 6px;
+}
+
+.hero-upload-hint {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+.btn-upload-browse {
+    padding: 10px 24px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-upload-browse:hover {
+    background: var(--secondary);
+}
+
+/* Upload Divider */
+.hero-upload-divider {
+    max-width: 640px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+.hero-upload-divider::before,
+.hero-upload-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+/* Nav Divider & Group Labels */
+.nav-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 10px 20px;
+}
+
+.nav-group-label {
+    padding: 6px 20px 4px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-light);
+}
+
+/* Form Section Labels */
+.form-section-label {
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    padding: 18px 0 8px;
+    border-top: 1px solid var(--border);
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+.form-section-label:first-child {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+/* Form Hint */
+.form-hint {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 6px;
+    line-height: 1.5;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .sidebar {

@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Punarjanii</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&family=Instrument+Sans:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&family=Instrument+Sans:wght@400;500;700&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="admin-styles.css">
 </head>
+
 <body>
     <!-- Sidebar -->
     <aside class="sidebar">
@@ -20,6 +24,9 @@
         <nav class="sidebar-nav">
             <a href="#hero" class="nav-item active" data-section="hero">
                 <span>🏠</span> Hero Section
+            </a>
+            <a href="#hero-image" class="nav-item" data-section="hero-image">
+                <span>🖼️</span> Hero Image
             </a>
             <a href="#stats" class="nav-item" data-section="stats">
                 <span>📊</span> Statistics
@@ -38,6 +45,17 @@
             </a>
             <a href="#contact" class="nav-item" data-section="contact">
                 <span>📞</span> Contact Info
+            </a>
+            <div class="nav-divider"></div>
+            <div class="nav-group-label">Page Content</div>
+            <a href="#services-page" class="nav-item" data-section="services-page">
+                <span>🩺</span> Services Page
+            </a>
+            <a href="#contact-page" class="nav-item" data-section="contact-page">
+                <span>📋</span> Contact Page
+            </a>
+            <a href="#site-settings" class="nav-item" data-section="site-settings">
+                <span>⚙️</span> Site Settings
             </a>
         </nav>
 
@@ -73,34 +91,72 @@
                 </div>
 
                 <form id="heroForm" class="content-form">
-                    <div class="form-row">
-                        <div class="form-group full-width">
-                            <label class="form-label">Hero Heading</label>
-                            <input type="text" name="heading" class="form-input" placeholder="Enter hero heading" required>
-                        </div>
+                    <div class="form-group">
+                        <label class="form-label">Hero Heading</label>
+                        <input type="text" name="heading" class="form-input" placeholder="Empower your healing..."
+                            required>
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group full-width">
-                            <label class="form-label">Description</label>
-                            <textarea name="description" class="form-textarea" rows="3" placeholder="Enter hero description" required></textarea>
-                        </div>
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea name="description" class="form-textarea" rows="4"
+                            placeholder="Join us in transforming..."></textarea>
                     </div>
-
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">Primary Button Text</label>
-                            <input type="text" name="ctaPrimary" class="form-input" placeholder="e.g., Book now" required>
+                            <input type="text" name="ctaPrimary" class="form-input" placeholder="Book now" required>
                         </div>
-
                         <div class="form-group">
                             <label class="form-label">Secondary Button Text</label>
-                            <input type="text" name="ctaSecondary" class="form-input" placeholder="e.g., Get your Direction" required>
+                            <input type="text" name="ctaSecondary" class="form-input" placeholder="Get your Direction"
+                                required>
                         </div>
                     </div>
-
                     <div class="form-actions">
                         <button type="submit" class="btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Hero Image Section -->
+            <section id="hero-image" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">Hero Image</h2>
+                    <p class="section-description">Change the background image shown on the landing page</p>
+                </div>
+
+                <!-- Current Image Preview -->
+                <div class="hero-image-preview-wrapper">
+                    <div class="hero-image-label">Current Image</div>
+                    <div class="hero-image-preview" id="heroImagePreview">
+                        <img id="heroImagePreviewImg" src="" alt="Current hero image" style="display:none;">
+                        <span id="heroImagePreviewPlaceholder" class="hero-image-placeholder-text">Loading...</span>
+                    </div>
+                </div>
+
+                <!-- Upload Zone -->
+                <div class="hero-upload-zone" id="heroUploadZone">
+                    <div class="hero-upload-icon">📷</div>
+                    <div class="hero-upload-title">Drop an image here or click to browse</div>
+                    <div class="hero-upload-hint">Supports JPG, PNG, WebP — recommended size: 1440×900px</div>
+                    <input type="file" id="heroImageFileInput" accept="image/*" style="display:none;">
+                    <button type="button" class="btn-upload-browse" id="heroUploadBrowseBtn">Browse File</button>
+                </div>
+
+                <!-- Divider -->
+                <div class="hero-upload-divider"><span>or set by URL</span></div>
+
+                <!-- URL fallback -->
+                <form id="heroImageUrlForm" class="content-form">
+                    <div class="form-group">
+                        <label class="form-label">Image URL / Path</label>
+                        <input type="text" name="heroImage" id="heroImageUrlInput" class="form-input"
+                            placeholder="assets/images/hero-bg-2b24fd.png or https://...">
+                        <small class="form-hint">Paste a URL or a relative path to an image already in your
+                            project</small>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Save Image URL</button>
                     </div>
                 </form>
             </section>
@@ -118,7 +174,8 @@
                     <div class="form-row">
                         <div class="form-group full-width">
                             <label class="form-label">Stats Description</label>
-                            <textarea name="statsDescription" class="form-textarea" rows="3" placeholder="Enter description" required></textarea>
+                            <textarea name="statsDescription" class="form-textarea" rows="3"
+                                placeholder="Enter description" required></textarea>
                         </div>
                     </div>
 
@@ -188,7 +245,139 @@
 
                         <div class="form-group">
                             <label class="form-label">Email Address</label>
-                            <input type="email" name="email" class="form-input" placeholder="hello@harmoni.com" required>
+                            <input type="email" name="email" class="form-input" placeholder="hello@harmoni.com"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Services Page Section -->
+            <section id="services-page" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">Services Page Content</h2>
+                    <p class="section-description">Edit the text and headings shown on the Services page</p>
+                </div>
+
+                <form id="servicesPageForm" class="content-form">
+                    <div class="form-section-label">Hero Section</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Hero Title</label>
+                            <input type="text" name="heroTitle" class="form-input" placeholder="Our Services" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label class="form-label">Hero Description</label>
+                            <textarea name="heroDescription" class="form-textarea" rows="3"
+                                placeholder="Enter hero description"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section-label">Conditions We Treat</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Section Title</label>
+                            <input type="text" name="conditionsTitle" class="form-input"
+                                placeholder="Conditions We Treat" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label class="form-label">Description</label>
+                            <textarea name="conditionsDescription" class="form-textarea" rows="4"
+                                placeholder="Enter conditions description"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section-label">Why Choose Us</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Section Title</label>
+                            <input type="text" name="whyChooseTitle" class="form-input" placeholder="Why Choose Us"
+                                required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label class="form-label">Description</label>
+                            <textarea name="whyChooseDescription" class="form-textarea" rows="4"
+                                placeholder="Enter why choose us description"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Contact Page Section -->
+            <section id="contact-page" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">Contact Page Content</h2>
+                    <p class="section-description">Edit the text and details shown on the Contact page</p>
+                </div>
+
+                <form id="contactPageForm" class="content-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Page Title</label>
+                            <input type="text" name="title" class="form-input" placeholder="Contact Us" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label class="form-label">Subtitle / Description</label>
+                            <textarea name="subtitle" class="form-textarea" rows="3"
+                                placeholder="we're here to help..."></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label class="form-label">Address</label>
+                            <input type="text" name="address" class="form-input"
+                                placeholder="123 Wellness Street, City">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label class="form-label">Google Maps Embed URL</label>
+                            <input type="text" name="mapEmbedUrl" class="form-input"
+                                placeholder="https://www.google.com/maps/embed?pb=...">
+                            <small class="form-hint">Paste the embed URL from Google Maps → Share → Embed a map → Copy
+                                link</small>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Site Settings Section -->
+            <section id="site-settings" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">Site Settings</h2>
+                    <p class="section-description">Update global site information shown across all pages</p>
+                </div>
+
+                <form id="siteSettingsForm" class="content-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Clinic Name</label>
+                            <input type="text" name="clinicName" class="form-input" placeholder="Punarjani" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Footer Tagline</label>
+                            <input type="text" name="footerTagline" class="form-input"
+                                placeholder="Wellness & Healthcare">
                         </div>
                     </div>
 
@@ -218,4 +407,5 @@
 
     <script src="admin-script.js"></script>
 </body>
+
 </html>

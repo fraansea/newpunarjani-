@@ -72,7 +72,8 @@ const getDefaultData = () => ({
         heading: 'Empower your healing and harmony',
         description: 'Join us in transforming your body and mind through our comprehensive yoga and fitness programs.',
         ctaPrimary: 'Book now',
-        ctaSecondary: 'Get your Direction'
+        ctaSecondary: 'Get your Direction',
+        heroImage: 'assets/images/hero-bg-2b24fd.png'
     },
     stats: [
         { value: '1k', suffix: '+', label: 'Patients treated' },
@@ -186,6 +187,24 @@ const getDefaultData = () => ({
     contact: {
         phone: '(814) 413-9191',
         email: 'hello@harmoni.com'
+    },
+    servicesPage: {
+        heroTitle: 'Our Services',
+        heroDescription: 'We offer a wide range of evidence-based therapies to help you recover, heal and thrive.',
+        conditionsTitle: 'Conditions We Treat',
+        conditionsDescription: 'From chronic pain to post-injury recovery, our expert team provides targeted treatments for a wide range of musculoskeletal and neurological conditions.',
+        whyChooseTitle: 'Why Choose Us',
+        whyChooseDescription: 'Our multidisciplinary approach combines traditional wisdom with modern techniques to deliver lasting results for every patient.'
+    },
+    contactPage: {
+        title: 'Contact Us',
+        subtitle: "we're here to help! Whether you have questions, feedback, or need support, our team is ready to assist you.",
+        address: '123 Wellness Street, Thrissur, Kerala',
+        mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3926.7!2d76.2!3d10.5'
+    },
+    siteSettings: {
+        clinicName: 'Punarjani',
+        footerTagline: 'Wellness & Healthcare'
     }
 });
 
@@ -209,28 +228,28 @@ const authenticateToken = (req, res, next) => {
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
     const data = loadData();
-    
+
     const user = data.users.find(u => u.username === username);
-    
+
     if (!user) {
         return res.status(401).json({ error: 'Invalid credentials' });
     }
-    
+
     const validPassword = bcrypt.compareSync(password, user.password);
-    
+
     if (!validPassword) {
         return res.status(401).json({ error: 'Invalid credentials' });
     }
-    
+
     const token = jwt.sign({ id: user.id, username: user.username }, JWT_SECRET, { expiresIn: '24h' });
-    
-    res.json({ 
-        token, 
-        user: { 
-            id: user.id, 
-            username: user.username, 
-            email: user.email 
-        } 
+
+    res.json({
+        token,
+        user: {
+            id: user.id,
+            username: user.username,
+            email: user.email
+        }
     });
 });
 
@@ -279,7 +298,7 @@ app.put('/api/services/:id', authenticateToken, (req, res) => {
     const data = loadData();
     const index = data.services.findIndex(s => s.id === parseInt(req.params.id));
     if (index === -1) return res.status(404).json({ error: 'Service not found' });
-    
+
     data.services[index] = { ...data.services[index], ...req.body };
     saveData(data);
     res.json({ message: 'Service updated successfully', service: data.services[index] });
@@ -313,7 +332,7 @@ app.put('/api/doctors/:id', authenticateToken, (req, res) => {
     const data = loadData();
     const index = data.doctors.findIndex(d => d.id === parseInt(req.params.id));
     if (index === -1) return res.status(404).json({ error: 'Doctor not found' });
-    
+
     data.doctors[index] = { ...data.doctors[index], ...req.body };
     saveData(data);
     res.json({ message: 'Doctor updated successfully', doctor: data.doctors[index] });
@@ -347,7 +366,7 @@ app.put('/api/reviews/:id', authenticateToken, (req, res) => {
     const data = loadData();
     const index = data.reviews.findIndex(r => r.id === parseInt(req.params.id));
     if (index === -1) return res.status(404).json({ error: 'Review not found' });
-    
+
     data.reviews[index] = { ...data.reviews[index], ...req.body };
     saveData(data);
     res.json({ message: 'Review updated successfully', review: data.reviews[index] });
@@ -381,7 +400,7 @@ app.put('/api/faqs/:id', authenticateToken, (req, res) => {
     const data = loadData();
     const index = data.faqs.findIndex(f => f.id === parseInt(req.params.id));
     if (index === -1) return res.status(404).json({ error: 'FAQ not found' });
-    
+
     data.faqs[index] = { ...data.faqs[index], ...req.body };
     saveData(data);
     res.json({ message: 'FAQ updated successfully', faq: data.faqs[index] });
@@ -402,14 +421,41 @@ app.put('/api/contact', authenticateToken, (req, res) => {
     res.json({ message: 'Contact updated successfully', contact: data.contact });
 });
 
+// Services Page Content
+app.put('/api/services-page', authenticateToken, (req, res) => {
+    const data = loadData();
+    if (!data.servicesPage) data.servicesPage = {};
+    data.servicesPage = { ...data.servicesPage, ...req.body };
+    saveData(data);
+    res.json({ message: 'Services page updated successfully', servicesPage: data.servicesPage });
+});
+
+// Contact Page Content
+app.put('/api/contact-page', authenticateToken, (req, res) => {
+    const data = loadData();
+    if (!data.contactPage) data.contactPage = {};
+    data.contactPage = { ...data.contactPage, ...req.body };
+    saveData(data);
+    res.json({ message: 'Contact page updated successfully', contactPage: data.contactPage });
+});
+
+// Site Settings
+app.put('/api/site-settings', authenticateToken, (req, res) => {
+    const data = loadData();
+    if (!data.siteSettings) data.siteSettings = {};
+    data.siteSettings = { ...data.siteSettings, ...req.body };
+    saveData(data);
+    res.json({ message: 'Site settings updated successfully', siteSettings: data.siteSettings });
+});
+
 // File Upload
 app.post('/api/upload', authenticateToken, upload.single('file'), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ error: 'No file uploaded' });
     }
-    res.json({ 
-        message: 'File uploaded successfully', 
-        path: '/uploads/' + req.file.filename 
+    res.json({
+        message: 'File uploaded successfully',
+        path: '/uploads/' + req.file.filename
     });
 });
 

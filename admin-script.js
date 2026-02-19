@@ -25,7 +25,7 @@ const showToast = (message, type = 'success') => {
     const toast = document.getElementById('toast');
     toast.textContent = message;
     toast.className = `toast show ${type}`;
-    
+
     setTimeout(() => {
         toast.classList.remove('show');
     }, 3000);
@@ -50,11 +50,11 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
 document.querySelectorAll('.nav-item').forEach(item => {
     item.addEventListener('click', (e) => {
         e.preventDefault();
-        
+
         // Update active nav item
         document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
         item.classList.add('active');
-        
+
         // Show corresponding section
         const section = item.dataset.section;
         document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
@@ -68,7 +68,7 @@ const loadContent = async () => {
         const response = await fetch(`${API_URL}/content`);
         const data = await response.json();
         currentContent = data;
-        
+
         loadHero(data.hero);
         loadStats(data.stats, data.statsDescription);
         loadServices(data.services);
@@ -76,6 +76,9 @@ const loadContent = async () => {
         loadReviews(data.reviews);
         loadFaqs(data.faqs);
         loadContact(data.contact);
+        loadServicesPage(data.servicesPage || {});
+        loadContactPage(data.contactPage || {});
+        loadSiteSettings(data.siteSettings || {});
     } catch (error) {
         console.error('Error loading content:', error);
         showToast('Error loading content', 'error');
@@ -89,20 +92,138 @@ const loadHero = (hero) => {
     form.description.value = hero.description;
     form.ctaPrimary.value = hero.ctaPrimary;
     form.ctaSecondary.value = hero.ctaSecondary;
+
+    // Load hero image preview
+    const img = document.getElementById('heroImagePreviewImg');
+    const placeholder = document.getElementById('heroImagePreviewPlaceholder');
+    const urlInput = document.getElementById('heroImageUrlInput');
+    if (hero.heroImage) {
+        if (img) {
+            img.src = hero.heroImage;
+            img.style.display = 'block';
+        }
+        if (placeholder) placeholder.style.display = 'none';
+        if (urlInput) urlInput.value = hero.heroImage;
+    } else {
+        if (img) img.style.display = 'none';
+        if (placeholder) { placeholder.style.display = 'block'; placeholder.textContent = 'No image set'; }
+    }
 };
+
+// Helper: save heroImage path via /api/hero
+const saveHeroImage = async (imagePath) => {
+    const response = await fetch(`${API_URL}/hero`, {
+        method: 'PUT',
+        headers: getHeaders(),
+        body: JSON.stringify({ heroImage: imagePath })
+    });
+    if (!response.ok) throw new Error('Failed to save hero image');
+    return imagePath;
+};
+
+// Helper: update preview in the admin panel
+const updateHeroImagePreview = (src) => {
+    const img = document.getElementById('heroImagePreviewImg');
+    const placeholder = document.getElementById('heroImagePreviewPlaceholder');
+    const urlInput = document.getElementById('heroImageUrlInput');
+    if (img) { img.src = src; img.style.display = 'block'; }
+    if (placeholder) placeholder.style.display = 'none';
+    if (urlInput) urlInput.value = src;
+};
+
+// Hero image upload zone
+const setupHeroImageUpload = () => {
+    const zone = document.getElementById('heroUploadZone');
+    const fileInput = document.getElementById('heroImageFileInput');
+    const browseBtn = document.getElementById('heroUploadBrowseBtn');
+
+    if (!zone || !fileInput || !browseBtn) return;
+
+    // Browse button triggers file input
+    browseBtn.addEventListener('click', () => fileInput.click());
+    zone.addEventListener('click', (e) => { if (e.target !== browseBtn) fileInput.click(); });
+
+    // Drag-and-drop visual feedback
+    zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('dragover'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+    zone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        zone.classList.remove('dragover');
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) uploadHeroImageFile(file);
+    });
+
+    // File input change
+    fileInput.addEventListener('change', () => {
+        const file = fileInput.files[0];
+        if (file) uploadHeroImageFile(file);
+    });
+};
+
+// Upload a file and store its path
+const uploadHeroImageFile = async (file) => {
+    const zone = document.getElementById('heroUploadZone');
+    zone.classList.add('uploading');
+    const titleEl = zone.querySelector('.hero-upload-title');
+    const originalTitle = titleEl.textContent;
+    titleEl.textContent = 'Uploading...';
+
+    try {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const uploadRes = await fetch(`${API_URL}/upload`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` },
+            body: formData
+        });
+
+        if (!uploadRes.ok) throw new Error('Upload failed');
+        const uploadData = await uploadRes.json();
+        const imagePath = uploadData.path; // e.g. "/uploads/hero-bg-1234567.png"
+
+        await saveHeroImage(imagePath);
+        updateHeroImagePreview(imagePath);
+        showToast('Hero image updated successfully!');
+    } catch (err) {
+        showToast('Error uploading image', 'error');
+    } finally {
+        zone.classList.remove('uploading');
+        titleEl.textContent = originalTitle;
+    }
+};
+
+// URL form submit
+document.getElementById('heroImageUrlForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const urlInput = document.getElementById('heroImageUrlInput');
+    const imagePath = urlInput.value.trim();
+    if (!imagePath) return;
+
+    try {
+        await saveHeroImage(imagePath);
+        updateHeroImagePreview(imagePath);
+        showToast('Hero image URL saved successfully!');
+    } catch (err) {
+        showToast('Error saving image URL', 'error');
+    }
+});
+
+// Initialize hero image upload zone on page load
+setupHeroImageUpload();
 
 document.getElementById('heroForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    
+
     try {
         const response = await fetch(`${API_URL}/hero`, {
             method: 'PUT',
             headers: getHeaders(),
             body: JSON.stringify(data)
         });
-        
+
         if (response.ok) {
             showToast('Hero section updated successfully!');
         } else {
@@ -135,14 +256,14 @@ const loadStats = (stats, description) => {
             </div>
         </div>
     `).join('');
-    
+
     document.querySelector('[name="statsDescription"]').value = description;
 };
 
 document.getElementById('statsForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    
+
     const stats = [];
     for (let i = 0; i < 3; i++) {
         stats.push({
@@ -151,19 +272,19 @@ document.getElementById('statsForm').addEventListener('submit', async (e) => {
             label: formData.get(`stat-${i}-label`)
         });
     }
-    
+
     const data = {
         stats,
         statsDescription: formData.get('statsDescription')
     };
-    
+
     try {
         const response = await fetch(`${API_URL}/stats`, {
             method: 'PUT',
             headers: getHeaders(),
             body: JSON.stringify(data)
         });
-        
+
         if (response.ok) {
             showToast('Statistics updated successfully!');
         } else {
@@ -216,7 +337,7 @@ document.getElementById('addServiceBtn').addEventListener('click', () => {
                 headers: getHeaders(),
                 body: JSON.stringify(Object.fromEntries(formData))
             });
-            
+
             if (response.ok) {
                 showToast('Service added successfully!');
                 closeModal();
@@ -233,7 +354,7 @@ document.getElementById('addServiceBtn').addEventListener('click', () => {
 window.editService = (id) => {
     const service = currentContent.services.find(s => s.id === id);
     if (!service) return;
-    
+
     showModal('Edit Service', `
         <form id="serviceForm" class="content-form">
             <div class="form-group">
@@ -259,7 +380,7 @@ window.editService = (id) => {
                 headers: getHeaders(),
                 body: JSON.stringify(Object.fromEntries(formData))
             });
-            
+
             if (response.ok) {
                 showToast('Service updated successfully!');
                 closeModal();
@@ -275,13 +396,13 @@ window.editService = (id) => {
 
 window.deleteService = async (id) => {
     if (!confirm('Are you sure you want to delete this service?')) return;
-    
+
     try {
         const response = await fetch(`${API_URL}/services/${id}`, {
             method: 'DELETE',
             headers: getHeaders()
         });
-        
+
         if (response.ok) {
             showToast('Service deleted successfully!');
             loadContent();
@@ -340,7 +461,7 @@ document.getElementById('addDoctorBtn').addEventListener('click', () => {
                 headers: getHeaders(),
                 body: JSON.stringify(Object.fromEntries(formData))
             });
-            
+
             if (response.ok) {
                 showToast('Doctor added successfully!');
                 closeModal();
@@ -357,7 +478,7 @@ document.getElementById('addDoctorBtn').addEventListener('click', () => {
 window.editDoctor = (id) => {
     const doctor = currentContent.doctors.find(d => d.id === id);
     if (!doctor) return;
-    
+
     showModal('Edit Doctor', `
         <form id="doctorForm" class="content-form">
             <div class="form-group">
@@ -387,7 +508,7 @@ window.editDoctor = (id) => {
                 headers: getHeaders(),
                 body: JSON.stringify(Object.fromEntries(formData))
             });
-            
+
             if (response.ok) {
                 showToast('Doctor updated successfully!');
                 closeModal();
@@ -403,13 +524,13 @@ window.editDoctor = (id) => {
 
 window.deleteDoctor = async (id) => {
     if (!confirm('Are you sure you want to delete this doctor?')) return;
-    
+
     try {
         const response = await fetch(`${API_URL}/doctors/${id}`, {
             method: 'DELETE',
             headers: getHeaders()
         });
-        
+
         if (response.ok) {
             showToast('Doctor deleted successfully!');
             loadContent();
@@ -473,7 +594,7 @@ document.getElementById('addReviewBtn').addEventListener('click', () => {
                 headers: getHeaders(),
                 body: JSON.stringify(Object.fromEntries(formData))
             });
-            
+
             if (response.ok) {
                 showToast('Review added successfully!');
                 closeModal();
@@ -490,7 +611,7 @@ document.getElementById('addReviewBtn').addEventListener('click', () => {
 window.editReview = (id) => {
     const review = currentContent.reviews.find(r => r.id === id);
     if (!review) return;
-    
+
     showModal('Edit Review', `
         <form id="reviewForm" class="content-form">
             <div class="form-group">
@@ -524,7 +645,7 @@ window.editReview = (id) => {
                 headers: getHeaders(),
                 body: JSON.stringify(Object.fromEntries(formData))
             });
-            
+
             if (response.ok) {
                 showToast('Review updated successfully!');
                 closeModal();
@@ -540,13 +661,13 @@ window.editReview = (id) => {
 
 window.deleteReview = async (id) => {
     if (!confirm('Are you sure you want to delete this review?')) return;
-    
+
     try {
         const response = await fetch(`${API_URL}/reviews/${id}`, {
             method: 'DELETE',
             headers: getHeaders()
         });
-        
+
         if (response.ok) {
             showToast('Review deleted successfully!');
             loadContent();
@@ -597,7 +718,7 @@ document.getElementById('addFaqBtn').addEventListener('click', () => {
                 headers: getHeaders(),
                 body: JSON.stringify(Object.fromEntries(formData))
             });
-            
+
             if (response.ok) {
                 showToast('FAQ added successfully!');
                 closeModal();
@@ -614,7 +735,7 @@ document.getElementById('addFaqBtn').addEventListener('click', () => {
 window.editFaq = (id) => {
     const faq = currentContent.faqs.find(f => f.id === id);
     if (!faq) return;
-    
+
     showModal('Edit FAQ', `
         <form id="faqForm" class="content-form">
             <div class="form-group">
@@ -636,7 +757,7 @@ window.editFaq = (id) => {
                 headers: getHeaders(),
                 body: JSON.stringify(Object.fromEntries(formData))
             });
-            
+
             if (response.ok) {
                 showToast('FAQ updated successfully!');
                 closeModal();
@@ -652,13 +773,13 @@ window.editFaq = (id) => {
 
 window.deleteFaq = async (id) => {
     if (!confirm('Are you sure you want to delete this FAQ?')) return;
-    
+
     try {
         const response = await fetch(`${API_URL}/faqs/${id}`, {
             method: 'DELETE',
             headers: getHeaders()
         });
-        
+
         if (response.ok) {
             showToast('FAQ deleted successfully!');
             loadContent();
@@ -681,14 +802,14 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    
+
     try {
         const response = await fetch(`${API_URL}/contact`, {
             method: 'PUT',
             headers: getHeaders(),
             body: JSON.stringify(data)
         });
-        
+
         if (response.ok) {
             showToast('Contact information updated successfully!');
         } else {
@@ -705,7 +826,7 @@ const showModal = (title, content, onSubmit) => {
     document.getElementById('modalTitle').textContent = title;
     document.getElementById('modalBody').innerHTML = content;
     modal.classList.add('show');
-    
+
     if (onSubmit) {
         const form = document.getElementById('modalBody').querySelector('form');
         if (form) {
@@ -727,6 +848,108 @@ document.getElementById('modalClose').addEventListener('click', closeModal);
 document.getElementById('modal').addEventListener('click', (e) => {
     if (e.target.id === 'modal') {
         closeModal();
+    }
+});
+
+// ============================================================
+// Services Page Section
+// ============================================================
+const loadServicesPage = (sp) => {
+    const form = document.getElementById('servicesPageForm');
+    if (!form) return;
+    form.heroTitle.value = sp.heroTitle || '';
+    form.heroDescription.value = sp.heroDescription || '';
+    form.conditionsTitle.value = sp.conditionsTitle || '';
+    form.conditionsDescription.value = sp.conditionsDescription || '';
+    form.whyChooseTitle.value = sp.whyChooseTitle || '';
+    form.whyChooseDescription.value = sp.whyChooseDescription || '';
+};
+
+document.getElementById('servicesPageForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+    try {
+        const response = await fetch(`${API_URL}/services-page`, {
+            method: 'PUT',
+            headers: getHeaders(),
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            showToast('Services page updated successfully!');
+        } else {
+            throw new Error('Failed to update');
+        }
+    } catch (error) {
+        showToast('Error updating services page', 'error');
+    }
+});
+
+// ============================================================
+// Contact Page Section
+// ============================================================
+const loadContactPage = (cp) => {
+    const form = document.getElementById('contactPageForm');
+    if (!form) return;
+    form.title.value = cp.title || '';
+    form.subtitle.value = cp.subtitle || '';
+    form.address.value = cp.address || '';
+    form.mapEmbedUrl.value = cp.mapEmbedUrl || '';
+};
+
+document.getElementById('contactPageForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+    try {
+        const response = await fetch(`${API_URL}/contact-page`, {
+            method: 'PUT',
+            headers: getHeaders(),
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            showToast('Contact page updated successfully!');
+        } else {
+            throw new Error('Failed to update');
+        }
+    } catch (error) {
+        showToast('Error updating contact page', 'error');
+    }
+});
+
+// ============================================================
+// Site Settings Section
+// ============================================================
+const loadSiteSettings = (ss) => {
+    const form = document.getElementById('siteSettingsForm');
+    if (!form) return;
+    form.clinicName.value = ss.clinicName || '';
+    form.footerTagline.value = ss.footerTagline || '';
+};
+
+document.getElementById('siteSettingsForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+    try {
+        const response = await fetch(`${API_URL}/site-settings`, {
+            method: 'PUT',
+            headers: getHeaders(),
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            showToast('Site settings updated successfully!');
+        } else {
+            throw new Error('Failed to update');
+        }
+    } catch (error) {
+        showToast('Error updating site settings', 'error');
     }
 });
 
