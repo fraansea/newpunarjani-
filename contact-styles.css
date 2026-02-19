@@ -861,19 +861,60 @@ body {
         gap: 12px;
     }
 
-    .footer-large-text {
-        height: 140px;
-    }
-
+    /* Footer - Figma mobile */
     .footer-inner {
-        padding: 0 16px 120px;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
         gap: 24px;
+        padding: 0 20px 60px;
     }
 
-    .footer-link,
-    .footer-heading,
+    .footer-logo .logo {
+        width: 120px;
+        height: auto;
+    }
+
+    .footer-nav {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 0;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .footer-col.footer-col--contact {
+        align-items: flex-start;
+        gap: 5px;
+        flex: 0 0 auto;
+        max-width: 140px;
+        order: -1;
+    }
+
+    .footer-col {
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .footer-heading {
+        font-size: 13.1px;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+
+    .footer-link {
+        font-size: 10.9px;
+        opacity: 0.6;
+    }
+
     .footer-contact {
-        font-size: 16px;
+        font-size: 11px;
+        color: #636360;
+    }
+
+    .footer-large-text {
+        height: auto;
+        overflow: hidden;
     }
 }
 
@@ -914,8 +955,46 @@ body {
     }
 
     .footer-inner {
-        padding: 0 14px 100px;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
         gap: 20px;
+        padding: 0 16px 60px;
+    }
+
+    .footer-nav {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 100%;
+        gap: 0;
+    }
+
+    .footer-col.footer-col--contact {
+        align-items: flex-start;
+        gap: 4px;
+        max-width: 130px;
+        order: -1;
+    }
+
+    .footer-col {
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    .footer-heading {
+        font-size: 13.1px;
+        font-weight: 600;
+    }
+
+    .footer-link {
+        font-size: 10.9px;
+        opacity: 0.6;
+    }
+
+    .footer-contact {
+        font-size: 11px;
+        color: #636360;
     }
 
     .footer-logo .logo {
