@@ -966,6 +966,11 @@ body {
     gap: 55px;
 }
 
+/* Desktop: Push contact to right */
+.contact-col {
+    order: 5;
+}
+
 .footer-link {
     font-family: var(--font-secondary);
     font-weight: 400;

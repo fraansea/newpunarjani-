@@ -556,6 +556,7 @@ body {
 }
 
 .footer-col--contact {
+    order: 5;
     gap: 12px;
 }
 
